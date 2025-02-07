@@ -1,2 +1,2 @@
-# global_wildfires_2022
-A global dataset of natural wildfires in 2022
+# california_wildfires
+List of WildFires in California between 2013 and 2020
