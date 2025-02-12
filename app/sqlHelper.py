@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine, text
-
+from pydoc import text
 import pandas as pd
+from sqlalchemy import create_engine, func 
 
 # Define the SQLHelper Class
 # PURPOSE: Deal with all of the database logic

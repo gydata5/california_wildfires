@@ -21,6 +21,26 @@ sqlHelper = SQLHelper()
 def welcome():
     return render_template("index.html")
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+                           
+@app.route("/map")
+def map():
+    return render_template("map.html")
+                           
+@app.route("/about_us")
+def about_us():
+    return render_template("about_us.html")
+                           
+@app.route("/works_cited")
+def works_cited():
+    return render_template("works_cited.html")
+
+#################################################
+# Flask API Routes
+#################################################
+
 @app.route("/api/v1.0/bar_data")
 def bar_data():
     # Execute queries
