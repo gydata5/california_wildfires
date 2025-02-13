@@ -21,8 +21,8 @@ function createMap() {
   fetch(`/api/v1.0/map_data`)
     .then(response => response.json())
     .then(wildfireData => {
-      // Fetch GeoJSON for California counties
-      fetch('path/to/california-counties.geojson')
+      // Fetch CSV and then GeoJSON for California counties
+      // fetch('NEED A Pathcalifornia-counties.geojson')
         .then(response => response.json())
         .then(countyGeoJSON => {
           // Create map object
@@ -30,6 +30,18 @@ function createMap() {
             center: [37.5, -119.5], // Center the map on California
             zoom: 6,
             layers: [street] // Start with the street layer
+          });
+      
+      
+      
+        console.log(data); 
+      });
+
+          // Create map object
+          let myMap = L.map("map", {
+            center: [37.5, -119.5], 
+            zoom: 6,
+            layers: [street] 
           });
 
           // Add GeoJSON layer for counties with color coding based on acres burned
@@ -65,7 +77,6 @@ function createMap() {
 
           L.control.layers(baseMaps).addTo(myMap);
         });
-    });
 }
 
 // Event listener for page load
