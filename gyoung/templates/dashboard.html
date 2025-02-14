@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Wildfire Data Dashboard</title>
+    <!-- Bootstrap CSS for layout and styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/superhero/bootstrap.min.css">
+    <!-- Leaflet for map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Custom styles for the dashboard -->
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">California Wildfire Data Dashboard</h1>
+        
+        <!-- Year Selection for Filtering Data -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="yearSelect">Select Year:</label>
+                    <select id="yearSelect" class="form-control">
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary mt-4" onclick="updateVisualization()">Generate Visualization</button>
+            </div>
+        </div>
+
+        <!-- Map container -->
+        <div id="map"></div>
+
+        <!-- Table for displaying wildfire data -->
+        <div class="mt-4">
+            <h3>Wildfire Data by County</h3>
+            <table class="table table-bordered" id="wildfireTable">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>County</th>
+                        <th>Fire Name</th>
+                        <th>Acres Burned</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Leaflet & D3.js Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    
+    <script src="./static/logic.js"></script>
+
+   
+    <script>
+        // Sample data (to be replaced with your database query results)
+        const wildfireData = [
+            { year: 2019, county: 'Los Angeles', name: 'Woolsey Fire', acres_burned: 96000, latitude: 34.1, longitude: -118.7 },
+            { year: 2018, county: 'Butte', name: 'Camp Fire', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
+            // Add more wildfire data entries
+        ];
+
+        // Function to update the table based on year selected
+        function updateTable() {
+            const selectedYear = document.getElementById('yearSelect').value;
+            const filteredData = wildfireData.filter(item => item.year == selectedYear);
+
+            const tableBody = document.getElementById('wildfireTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear current table content
+
+            filteredData.forEach(row => {
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `
+                    <td>${row.year}</td>
+                    <td>${row.county}</td>
+                    <td>${row.name}</td>
+                    <td>${row.acres_burned.toLocaleString()}</td>
+                    <td>${row.latitude}</td>
+                    <td>${row.longitude}</td>
+                `;
+            });
+        }
+
+        // Function to initialize the map (similar to what we had before)
+        function createMap() {
+            let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+
+            let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+
+            // Create map object
+            let myMap = L.map("map", {
+                center: [37.5, -119.5],
+                zoom: 6,
+                layers: [street]
+            });
+
+            // URL to fetch GeoJSON data for counties in California
+            const url = "https://gist.githubusercontent.com/mapsam/6cec03506d1d2c91fc4ccb0edaee446b/raw/c7474efa5ea1e2347d589d1889d76e45eeb4e1c0/ca-counties.geojson";
+
+            d3.json(url).then(function(countyGeoJSON) {
+                // Add GeoJSON layer for counties
+                L.geoJSON(countyGeoJSON, {
+                    style: function(feature) {
+                        return {
+                            color: '#ff7800',
+                            weight: 2,
+                            opacity: 1,
+                            fillOpacity: 0.5
+                        };
+                    },
+                    onEachFeature: function(feature, layer) {
+                        layer.on('click', function() {
+                            myMap.fitBounds(layer.getBounds());
+                        });
+                    }
+                }).addTo(myMap);
+            });
+        }
+
+        // Initialize everything on page load
+        window.onload = function() {
+            createMap(); // Initialize the map
+            updateTable(); // Populate the table with data
+        };
+    </script>
+</body>
+</html>
