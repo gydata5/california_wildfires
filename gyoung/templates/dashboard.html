@@ -8,24 +8,43 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/superhero/bootstrap.min.css">
     <!-- Leaflet for map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <!-- Custom styles for the dashboard -->
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-        .container {
-            margin-top: 30px;
-        }
-        table {
-            width: 100%;
-        }
-    </style>
-</head>
+       <!-- Leaflet & D3.js Scripts -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://d3js.org/d3.v7.min.js"></script>
+   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+   
+/head>
 
 <body>
-    <div class="container">
-        <h1 class="text-center my-4">California Wildfire Data Dashboard</h1>
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/map">Map</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/about_us">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/works_cited">Works Cited</a>
+                    </li>
+                </ul>
+             </div>
+            </div>
+        </nav>
+        <div class="container">
+            <h1 class="text-center my-4">California Wildfire Data Dashboard</h1>
         
         <!-- Year Selection for Filtering Data -->
         <div class="row mb-4">
@@ -59,7 +78,6 @@
                     <tr>
                         <th>Year</th>
                         <th>County</th>
-                        <th>Fire Name</th>
                         <th>Acres Burned</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
@@ -71,23 +89,22 @@
             </table>
         </div>
     </div>
-
-    <!-- Leaflet & D3.js Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
     
     <script src="./static/logic.js"></script>
 
    
     <script>
-        // Sample data (to be replaced with your database query results)
+        // Sample data (REPLACE WITH WHAT OUR QUERY RESULTS ARE)
         const wildfireData = [
-            { year: 2019, county: 'Los Angeles', name: 'Woolsey Fire', acres_burned: 96000, latitude: 34.1, longitude: -118.7 },
-            { year: 2018, county: 'Butte', name: 'Camp Fire', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
-            // Add more wildfire data entries
-        ];
+            { year: 2019, county: 'Los Angeles', acres_burned: 96000, latitude: 34.1, longitude: -118.7 },
+            { year: 2018, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
+            { year: 2017, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
+            { year: 2016, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
+            { year: 2015, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
+            { year: 2014, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
+            { year: 2013, county: 'Tuolumne', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
+        ]; 
+         
 
         // Function to update the table based on year selected
         function updateTable() {
