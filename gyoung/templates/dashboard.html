@@ -1,57 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Common imports for both pages -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>California Wildfire Data Dashboard</title>
-    <!-- Bootstrap CSS for layout and styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/superhero/bootstrap.min.css">
-    <!-- Leaflet for map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-       <!-- Leaflet & D3.js Scripts -->
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script src="https://d3js.org/d3.v7.min.js"></script>
-   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-   
-/head>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.13.1"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+</head>
 <body>
+    <!-- Common navbar -->
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav w-100 justify-content-around">
                     <li class="nav-item">
-                      <a class="nav-link active" href="/">Home</a>
+                        <a class="nav-link active" href="./home.html">Home</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/dashboard">Dashboard</a>
+                        <a class="nav-link" href="./dashboard.html">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/map">Map</a>
+                        <a class="nav-link" href="./map.html">Map</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/about_us">About Us</a>
+                        <a class="nav-link" href="./about_us.html">About Us</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/works_cited">Works Cited</a>
+                        <a class="nav-link" href="./works_cited.html">Works Cited</a>
                     </li>
                 </ul>
              </div>
-            </div>
-        </nav>
+        </div>
+    </nav>
         <div class="container">
             <h1 class="text-center my-4">California Wildfire Data Dashboard</h1>
         
         <!-- Year Selection for Filtering Data -->
         <div class="row mb-4">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="yearSelect">Select Year:</label>
                     <select id="yearSelect" class="form-control">
+                        <option value="all">All Years</option>
                         <option value="2013">2013</option>
                         <option value="2014">2014</option>
                         <option value="2015">2015</option>
@@ -62,116 +68,54 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <button class="btn btn-primary mt-4" onclick="updateVisualization()">Generate Visualization</button>
             </div>
+            <!-- Removed Toggle Legend button from here -->
         </div>
 
-        <!-- Map container -->
-        <div id="map"></div>
-
-        <!-- Table for displaying wildfire data -->
-        <div class="mt-4">
-            <h3>Wildfire Data by County</h3>
-            <table class="table table-bordered" id="wildfireTable">
-                <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>County</th>
-                        <th>Acres Burned</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-md-6" style="height:700px;">
+                <h3>County Choropleth Map</h3>
+                <!-- Map container taking 80% height -->
+                <div id="map" style="height: 80%;"></div>
+                <!-- Bar chart container now taking 50% height -->
+                <h3 style="margin-top:20px;">Number of Wildfires By County</h3>
+                <div id="barChart" style="height: 80%;">
+                    <!-- Bar chart will be rendered here -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Table for displaying wildfire data -->
+                <h3>Wildfire Data by County</h3>
+                <table class="table table-bordered" id="wildfireTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                County 
+                                <button class="btn btn-link p-0" onclick="toggleSortCounty()">&#x21C5;</button>
+                            </th>
+                            <th>
+                                Number of Wildfires 
+                                <button class="btn btn-link p-0" onclick="toggleSortWildfires()">&#x21C5;</button>
+                            </th>
+                            <th>
+                                Total Acres Burned 
+                                <button class="btn btn-link p-0" onclick="toggleSortAcres()">&#x21C5;</button>
+                            </th>
+                            <th>
+                                Year
+                                <button class="btn btn-link p-0" onclick="toggleSortYear()">&#x21C5;</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
-    <script src="./static/logic.js"></script>
-
-   
-    <script>
-        // Sample data (REPLACE WITH WHAT OUR QUERY RESULTS ARE)
-        const wildfireData = [
-            { year: 2019, county: 'Los Angeles', acres_burned: 96000, latitude: 34.1, longitude: -118.7 },
-            { year: 2018, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
-            { year: 2017, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
-            { year: 2016, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
-            { year: 2015, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
-            { year: 2014, county: 'Butte', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
-            { year: 2013, county: 'Tuolumne', acres_burned: 153336, latitude: 39.7, longitude: -121.6 },
-        ]; 
-         
-
-        // Function to update the table based on year selected
-        function updateTable() {
-            const selectedYear = document.getElementById('yearSelect').value;
-            const filteredData = wildfireData.filter(item => item.year == selectedYear);
-
-            const tableBody = document.getElementById('wildfireTable').getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = ''; // Clear current table content
-
-            filteredData.forEach(row => {
-                const newRow = tableBody.insertRow();
-                newRow.innerHTML = `
-                    <td>${row.year}</td>
-                    <td>${row.county}</td>
-                    <td>${row.name}</td>
-                    <td>${row.acres_burned.toLocaleString()}</td>
-                    <td>${row.latitude}</td>
-                    <td>${row.longitude}</td>
-                `;
-            });
-        }
-
-        // Function to initialize the map (similar to what we had before)
-        function createMap() {
-            let street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            });
-
-            let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-                attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            });
-
-            // Create map object
-            let myMap = L.map("map", {
-                center: [37.5, -119.5],
-                zoom: 6,
-                layers: [street]
-            });
-
-            // URL to fetch GeoJSON data for counties in California
-            const url = "https://gist.githubusercontent.com/mapsam/6cec03506d1d2c91fc4ccb0edaee446b/raw/c7474efa5ea1e2347d589d1889d76e45eeb4e1c0/ca-counties.geojson";
-
-            d3.json(url).then(function(countyGeoJSON) {
-                // Add GeoJSON layer for counties
-                L.geoJSON(countyGeoJSON, {
-                    style: function(feature) {
-                        return {
-                            color: '#ff7800',
-                            weight: 2,
-                            opacity: 1,
-                            fillOpacity: 0.5
-                        };
-                    },
-                    onEachFeature: function(feature, layer) {
-                        layer.on('click', function() {
-                            myMap.fitBounds(layer.getBounds());
-                        });
-                    }
-                }).addTo(myMap);
-            });
-        }
-
-        // Initialize everything on page load
-        window.onload = function() {
-            createMap(); // Initialize the map
-            updateTable(); // Populate the table with data
-        };
-    </script>
+    <script type="text/javascript" src="../static/logic.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
-from pydoc import text
+from sqlalchemy.sql import text
 import pandas as pd
-from sqlalchemy import create_engine, func 
+from sqlalchemy import create_engine
 
 # Define the SQLHelper Class
 # PURPOSE: Deal with all of the database logic
@@ -59,7 +59,7 @@ class SQLHelper():
         conn.close()
         return(df)
 
-def queryMapData(self):
+    def queryMapData(self):
         # Create our session (link) from Python to the DB
         conn = self.engine.connect() # Raw SQL/Pandas
 
