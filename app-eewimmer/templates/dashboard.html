@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Common imports for both pages -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Wildfire Data Dashboard</title>
+    <!-- BOOTSTRAP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/superhero/bootstrap.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.13.1"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+</head>
+<body>
+    <!-- Common navbar -->
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav w-100 justify-content-start">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/map">Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about_us">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/works_cited">Works Cited</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <h1 class="text-center my-4">California Wildfire Data Dashboard</h1>
+        
+        <!-- Year Selection for Filtering Data -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="yearSelect">Select Year:</label>
+                    <select id="yearSelect" class="form-control">
+                        <option value="all">All Years</option>
+                        <option value="2013">2013</option>
+                        <option value="2014">2014</option>
+                        <option value="2015">2015</option>
+                        <option value="2016">2016</option>
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary mt-4" onclick="updateVisualization()">Generate Visualization</button>
+            </div>
+            <!-- Removed Toggle Legend button from here -->
+        </div>
+
+        <div class="row">
+            <div class="col-md-6" style="height:700px;">
+                <h3>County Choropleth Map</h3>
+                <!-- Map container taking 80% height -->
+                <div id="map" style="height: 80%;"></div>
+                <!-- Bar chart container now taking 50% height -->
+                <h3 style="margin-top:20px;">Number of Wildfires By County</h3>
+                <div id="barChart" style="height: 80%;">
+                    <!-- Bar chart will be rendered here -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Table for displaying wildfire data -->
+                <h3>Wildfire Data by County</h3>
+                <table class="table table-bordered" id="wildfireTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                County 
+                                <button class="btn btn-link p-0" onclick="toggleSortCounty()">&#x21C5;</button>
+                            </th>
+                            <th>
+                                Number of Wildfires 
+                                <button class="btn btn-link p-0" onclick="toggleSortWildfires()">&#x21C5;</button>
+                            </th>
+                            <th>
+                                Total Acres Burned 
+                                <button class="btn btn-link p-0" onclick="toggleSortAcres()">&#x21C5;</button>
+                            </th>
+                            <th>
+                                Year
+                                <button class="btn btn-link p-0" onclick="toggleSortYear()">&#x21C5;</button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="static/js/app.js"></script>
+</body>
+</html>

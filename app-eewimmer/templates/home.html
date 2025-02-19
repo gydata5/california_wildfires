@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ...existing head elements from dashboard.html... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - California Wildfire Data Dashboard</title>
+    <!-- BOOTSTRAP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Added bootstrap styling from dashboard.html -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/superhero/bootstrap.min.css">
+    <!-- ...existing imports... -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+</head>
+<body>
+    <!-- Common navbar from dashboard.html -->
+    <!-- ...navbar code copied from dashboard.html... -->
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav w-100 justify-content-start">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/map">Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about_us">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/works_cited">Works Cited</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid"> 
+        <div class="row mb-6">
+            <div class="col-12 text-left"> <!-- Text occupies the full width -->
+                <h1>Home</h1>
+        
+                <h5 class="text-center"><strong>Welcome to the California Wildfire Data Dashboard. Here you can find insights on wildfire activities in California.</strong></h5>
+                <div class="mt-5">
+                <h5 class="text-center">Wildfires are becoming more and more prevalent in California; causing more loss of land, human life, wildlife, and wildlife habitat. Areas impacted by wildfires see negative impacts on air quality, surrounding temperatures, and local economies.</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-12"> <!-- New row for the image and causes -->
+            <div class="col-6 text-left"> <!-- Top 5 causes occupies half of the row -->
+                <div class="ml-5 mt-5"> <!-- Add margin-left for indentation -->
+                <h2>Top 5 Causes of Wildfires </h2>
+                <ol>
+                    <li>California's climate</li>
+                    <li>Strong winds</li>
+                    <li>Geography and vegetation</li>
+                    <li>Human activity</li>
+                    <li>Climate change</li>
+                </ol>
+                </div>
+            </div>
+            <div class="col-6 text-left"> <!-- image occupies the other half -->
+                <div class="mt-5">
+                <img src="pictures/OY.jpeg" alt="Smokey the Bear" class="rounded-image" width="400" height="400">
+                </div>  
+            </div>
+        </div>
+    </div>
+</body>
+</html>
