@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS
 from sqlHelper import SQLHelper
 
@@ -19,38 +19,38 @@ sqlHelper = SQLHelper()
 # Flask Routes
 #################################################
 
-# @app.route("/")
-# def welcome():
-#     return render_template("index.html")
-
-# @app.route("/dashboard")
-# def dashboard():
-#     return render_template("dashboard.html")
-                           
-# @app.route("/map")
-# def map():
-#     return render_template("map.html")
-                           
-# @app.route("/about_us")
-# def about_us():
-#     return render_template("about_us.html")
-                           
-# @app.route("/works_cited")
-# def works_cited():
-#     return render_template("works_cited.html")
+@app.route("/")
+def welcome():
+    return render_template("home.html")
 # 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+                        #    
+@app.route("/map")
+def map():
+    return render_template("map.html")
+                        #    
+@app.route("/about_us")
+def about_us():
+    return render_template("about_us.html")
+                        #    
+@app.route("/works_cited")
+def works_cited():
+    return render_template("works_cited.html")
+
 #################################################
 # Flask API Routes
 #################################################
-@app.route("/")
-def welcome():
-    return (
-        f"Welcome to the California Wildfires API!<br/>"
-        f"Available Routes:<br/>"
-        f"/api/v1.0/bar_data<br/>"
-        f"/api/v1.0/table_data<br/>"
-        f"/api/v1.0/map_data"
-    )
+# @app.route("/")
+# def welcome():
+    # return (
+        # f"Welcome to the California Wildfires API!<br/>"
+        # f"Available Routes:<br/>"
+        # f"/api/v1.0/bar_data<br/>"
+        # f"/api/v1.0/table_data<br/>"
+        # f"/api/v1.0/map_data"
+    # )
 
 @app.route("/api/v1.0/bar_data")
 def bar_data():
@@ -60,6 +60,7 @@ def bar_data():
     df = df.where(pd.notnull(df), None)
     # Turn DataFrame into List of Dictionary
     data = df.to_dict(orient="records")
+
     return jsonify(data)
 
 @app.route("/api/v1.0/table_data")
@@ -84,7 +85,7 @@ def table_data():
     # Convert NaN values to None and convert to native Python types
     county_summary = county_summary.where(pd.notnull(county_summary), None)
     data = county_summary.to_dict(orient="records")
-    
+
     return jsonify(data)
 
 @app.route("/api/v1.0/map_data")
@@ -95,6 +96,7 @@ def map_data():
     df = df.dropna()
     # Turn DataFrame into List of Dictionary
     data = df.to_dict(orient="records")
+
     return jsonify(data)
 
 #############################################################
