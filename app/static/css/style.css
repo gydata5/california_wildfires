@@ -87,15 +87,15 @@ nav .nav-link {
   height: auto;
 }
 .flame-container {
-  position: fixed; /* Keeps it in the bottom-left corner */
-  bottom: 20px; /* Adjust distance from bottom */
-  left: 20px; /* Adjust distance from left */
-  width: 120px; /* Adjust size */
+  position: fixed; 
+  bottom: 20px; 
+  left: 20px; 
+  width: 120px; 
   height: auto;
-  z-index: 9999; /* Ensures it stays on top */
+  z-index: 9999; 
 }
 
 .tenor-gif-embed {
-  max-width: 100% !important; /* Resizes based on .flame-container */
+  max-width: 100% !important; 
   height: auto !important;
 }
