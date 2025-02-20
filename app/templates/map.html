@@ -33,7 +33,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav w-100 justify-content-around">
+                <ul class="navbar-nav w-100 justify-content-start">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
@@ -56,9 +56,9 @@
     <div class="container-fluid">
         <h1 class="text-center">California Wildfire Data</h1>
 
-        <div class="form-group">
-            <label for="year">Select Year:</label>
-            <select id="year" class="form-control">
+         <div class="form-group d-flex align-items-center">
+            <label for="year" class="mr-2 mb-0">Select Year:</label>
+            <select id="year" class="form-control w-auto mr-3">
                 <option value="all">All Years</option>
                 <option value="2013">2013</option>
                 <option value="2014">2014</option>
@@ -69,12 +69,15 @@
                 <option value="2019">2019</option>
             </select>
         </div>
-        
+
+    <div class="mb-3">
         <button class="btn btn-primary" onclick="updateVisualization()">Generate Visualization</button>
+    </div>
 
         <div id="chart" class="mt-4"></div>
         <div id="map"></div>
     </div>
+
     <script type="text/javascript" src="static/js/map.js"></script>  
 
 </body>

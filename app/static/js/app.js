@@ -225,31 +225,79 @@ function getData() {
   });
 }
 
-// New function to render bar chart with Plotly
+// Render bar chart with Plotly
 function renderBarChart(data) {
+    // Colors for each year
+    const yearColors = {
+        "2013": "rgba(255, 99, 132, 0.6)",
+        "2014": "rgba(54, 162, 235, 0.6)",
+        "2015": "rgba(255, 206, 86, 0.6)",
+        "2016": "rgba(75, 192, 192, 0.6)",
+        "2017": "rgba(153, 102, 255, 0.6)",
+        "2018": "rgba(255, 159, 64, 0.6)",
+        "2019": "rgba(199, 199, 199, 0.6)",
+};
+    // Filter out Mexico and Nevada
+    let filteredData = data.filter(item => item.county !== "Mexico" && item.county !== "State of Nevada" && item.county !== "State of Oregon");
+
     // Extract y (county) and x (number of wildfires) for horizontal bar chart
-    let sortedData = data.sort((a,b)=> a.num_wildfires - b.num_wildfires);
+    let sortedData = filteredData.sort((a,b)=> a.num_wildfires - b.num_wildfires);
     console.log(sortedData)
-    let yValues = sortedData.map(item => item.county);
-    let xValues = sortedData.map(item => item.num_wildfires);
 
-    var trace = {
-        x: xValues,
-        y: yValues,
-        type: 'bar',
-        orientation: 'h',
-        marker: { color: '#df691a' } // Updated: Set bar color to match the Generate Visualization button
-    };
+    // Separate data by year
+    let groupedByYear = {};
+    sortedData.forEach(item => {
+        if (!groupedByYear[item.year]) {
+            groupedByYear[item.year] = { counties: [], wildfireCounts: [] };
+        }
+        groupedByYear[item.year].counties.push(item.county);
+        groupedByYear[item.year].wildfireCounts.push(item.num_wildfires);
+    });
 
+    // Prepare traces for the bar chart
+    let traceData = [];
+    const selectedYear = document.getElementById("yearSelect").value;
+
+    if (selectedYear === "all") {
+        // If "All Years" is selected, create a trace for each year with different colors
+        Object.keys(groupedByYear).forEach(year => {
+            traceData.push({
+                x: groupedByYear[year].wildfireCounts,
+                y: groupedByYear[year].counties,
+                type: 'bar',
+                orientation: 'h',
+                name: year,
+                marker: {
+                    color: yearColors[year] 
+                }
+            });
+        });
+    } else {
+        // If a specific year is selected, create one trace for that year
+        traceData.push({
+            x: groupedByYear[selectedYear].wildfireCounts,
+            y: groupedByYear[selectedYear].counties,
+            type: 'bar',
+            orientation: 'h',
+            name: selectedYear,
+            marker: {
+                color: yearColors[selectedYear]  
+            }
+        });
+    }
+
+    // Layout for the bar chart
     var layout = {
         xaxis: { title: 'Number of Wildfires' },
         margin: { t: 30, l: 150 }, // Increased left margin to prevent cut off labels
         paper_bgcolor: 'rgba(0,0,0,0)', // Remove paper background
         plot_bgcolor: 'rgba(0,0,0,0)',   // Remove plot background
-        font: { color: 'white' } // Added: Set font color to white
+        font: { color: 'white' }, // Set font color to white
+        barmode: 'stack' // Stack the bars when multiple years are shown
     };
 
-    Plotly.newPlot('barChart', [trace], layout);
+    // Create the bar chart
+    Plotly.newPlot('barChart', traceData, layout);
 }
 
 // Define the updateVisualization() function with filtering and marker clearing
