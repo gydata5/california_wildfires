@@ -1,6 +1,5 @@
 import pandas as pd
 from flask import Flask, jsonify, render_template
-from flask_cors import CORS
 from sqlHelper import SQLHelper
 
 
@@ -8,7 +7,7 @@ from sqlHelper import SQLHelper
 # Flask Setup
 #################################################
 app = Flask(__name__)
-CORS(app)
+
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0 # remove caching
 
 # SQL Helper
