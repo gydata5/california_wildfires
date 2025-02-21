@@ -1,8 +1,20 @@
-# California Wildfires
+# California Wildfires Data Analysis
 By: Emily Wimmer, Georgina Young, Ivelisse Montero, Dominique Kelsey, Gavin Bozan
 
-In this project, we analyzed California wildfire data to find patterns and trends. Using Python, we cleaned and organized the data, fixing dates, categorizing information, and formatting numbers to make analysis easier.
+# Features
+* Data Processing: Python scripts to clean and analyze wildfire data.
+* Database Storage: SQLite for efficient data management.
+* Web Application: Flask (app.py) serves as the backend.
+* SQL Helper: Manages queries and database interactions.
+* Frontend: JavaScript, HTML, and CSS for interactive visualizations.
+* Deployed website through PythonAnywhere
 
-Our findings showed where and when wildfires happen most often, as well as how their frequency has changed over time. We used charts and maps to make these trends clear.
+# Access Website from PythonAnywhere
+Open your browser and navigate to (https://gmyoung.pythonanywhere.com/)
 
-This project showed how data analysis can help us understand wildfire risks. Future improvements could include adding weather and land use data to better predict wildfires.
+# Data Source
+The wildfire dataset is sourced from Kaggle. Ensure you have access to the dataset before running the project.
+Link: https://www.kaggle.com/datasets/ananthu017/california-wildfire-incidents-20132020
+
+# License 
+© 2025 California Wildfires (2013-2020) Data App. All rights reserved.
