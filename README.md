@@ -1,4 +1,4 @@
-# california_wildfires
+# California Wildfires
 By: Emily Wimmer, Georgina Young, Ivelisse Montero, Dominique Kelsey, Gavin Bozan
 
 In this project, we analyzed California wildfire data to find patterns and trends. Using Python, we cleaned and organized the data, fixing dates, categorizing information, and formatting numbers to make analysis easier.
