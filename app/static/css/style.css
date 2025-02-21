@@ -1,0 +1,101 @@
+html,
+body,
+
+#map {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#map {
+  /* Change from 100% to fixed height if needed */
+  height: 1100px;
+}
+
+.legend {
+  padding: 10px;
+  line-height: 18px;
+  color: #555;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.legend i {
+  float: left;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+.leaflet-bottom.leaflet-left {
+  width: 90%;
+}
+
+.leaflet-control-container .leaflet-timeline-controls {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+nav .nav-link {
+  color: #fff !important;
+}
+
+#wildfireTable tbody tr:hover {
+    cursor: pointer;
+}
+
+/* Custom styling for Wildfire Section */
+.wildfire-section {
+  background-color: #1e3a5f;
+  color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.wildfire-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.wildfire-list li {
+  font-size: 1.2rem;
+  padding: 10px 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+.wildfire-list li:hover {
+  transform: scale(1.05);
+  color: #ffcc00;
+  cursor: pointer;
+}
+
+.wildfire-list i {
+  margin-right: 10px;
+  color: #ff5722;
+}
+
+.wildfire-img {
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(255, 140, 0, 0.5);
+  max-width: 100%;
+  height: auto;
+}
+.flame-container {
+  position: fixed; 
+  bottom: 20px; 
+  left: 20px; 
+  width: 120px; 
+  height: auto;
+  z-index: 9999; 
+}
+
+.tenor-gif-embed {
+  max-width: 100% !important; 
+  height: auto !important;
+}

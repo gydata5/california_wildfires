@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - California Wildfire Data Dashboard</title>
+
+    <!-- BOOTSTRAP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/superhero/bootstrap.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav w-100 justify-content-start">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/map">Map</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about_us">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/works_cited">Works Cited</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <!-- Intro Section -->
+        <div class="text-center mb-5">
+            <h5><strong>Welcome to the California Wildfire Data Dashboard. Here you can find insights on wildfire activities in California.</strong></h5>
+            <p class="lead">This project analyzes California wildfire data from 2013 to 2019, highlighting their increasing prevalence and the devastating impacts on land, human life, wildlife, air quality, and local economies.</p>
+        </div>
+
+        <!-- Wildfire Causes & Image Section -->
+        <div class="row align-items-center wildfire-section">
+            <div class="col-lg-6">
+                <h2 class="wildfire-title">🔥 Top 5 Causes of Wildfires</h2>
+                <ol class="wildfire-list list-unstyled">
+                    <li><i class="fas fa-sun"></i> <strong>1. California's climate:</strong> Hot, dry summers create the perfect conditions for wildfires to spread.</li>
+                    <li><i class="fas fa-wind"></i> <strong>2. Strong winds:</strong> Powerful winds, like the Santa Anas, can turn small fires into massive, uncontrollable blazes.</li>
+                    <li><i class="fas fa-tree"></i> <strong>3. Geography & vegetation:</strong> Dense forests, dry brush, and steep terrain make it easy for fires to ignite.</li>
+                    <li><i class="fas fa-fire"></i> <strong>4. Human activity:</strong> Campfires, cigarettes, and electrical failures are common human-related causes.</li>
+                    <li><i class="fas fa-temperature-high"></i> <strong>5. Climate change:</strong> Rising temperatures and prolonged droughts make wildfires more frequent.</li>
+                </ol>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="static/pictures/OY.jpeg" alt="Smokey the Bear" class="wildfire-img">
+            </div>
+        </div>
+    </div>
+    
+    <!-- GIF --> 
+    <div class="flame-container">
+        <div class="tenor-gif-embed" data-postid="13207424737824225380" data-share-method="host" data-aspect-ratio="1.86441" data-width="100%">
+            <a href="https://tenor.com/view/hello-bear-gif-13207424737824225380">Hello Bear GIF</a> from 
+            <a href="https://tenor.com/search/hello+bear-gifs">Hello Bear GIFs</a>
+        </div>
+    </div>
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    
+</body>
+</html>
